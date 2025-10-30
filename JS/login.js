@@ -76,7 +76,7 @@ async function handleLogin(email, password, messageEl) {
     localStorage.setItem('nome', data.nome);
     showMessage(messageEl, 'Login realizado com sucesso! Redirecionando...', 'green');
     setTimeout(() => {
-      window.location.href = './home.html';
+      window.location.href = './index.html';
     }, 1000); // dá tempo de mostrar a mensagem
   } catch (error) {
     console.error('Erro no login:', error);
