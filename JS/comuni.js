@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     messageInput.focus();
 
     try {
-      const res = await fetch("http://localhost:3000/Comunidade/Mensagem", {
+      const res = await fetch("http://192.168.1.19:3000/Comunidade/Mensagem", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usuario_id, usuario_nome, mensagem: text }),
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadMessages() {
     try {
-      const res = await fetch("http://localhost:3000/Comunidade/Mensagem");
+      const res = await fetch("http://192.168.1.19:3000/Comunidade/Mensagem");
       const mensagens = await res.json();
 
       if (!Array.isArray(mensagens)) return;
@@ -204,7 +204,7 @@ function createNote(nota) {
   deleteBtn.addEventListener("click", async () => {
     try {
       if (!nota.id) return;
-      const res = await fetch(`http://localhost:3000/Notas/${nota.id}`, { method: "DELETE" });
+      const res = await fetch(`http://192.168.1.19:3000/Notas/${nota.id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Erro ao excluir nota");
       note.remove();
 
@@ -236,7 +236,7 @@ addNoteBtn.addEventListener("click", () => {
 
 async function loadNotes() {
   try {
-    const res = await fetch(`http://localhost:3000/Notas/${usuario_id}`);
+    const res = await fetch(`http://192.168.1.19:3000/Notas/${usuario_id}`);
     const notas = await res.json();
 
     notesContainer.innerHTML = "";
