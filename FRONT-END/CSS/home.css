@@ -126,111 +126,119 @@ button.dark-mode {
   font-weight: bold;
   cursor: pointer;
 }
+/* Container de notas */
 .notes-container {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
   justify-content: center;
-  margin-top: 20px;
+  width: 100%;
 }
+
+/* Card individual de nota – quadrado fixo */
 .note {
-  width: 120px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
   background: #fff;
-  color: #000;
-  padding: 8px;
-  border-radius: 8px;
-  font-size: 14px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  color: #333;
+  padding: 10px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.note:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-}
+
+
+
+/* Área de texto da nota */
 .note textarea {
   flex: 1;
   border: none;
   resize: none;
   outline: none;
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   background: transparent;
+  color: #333;
 }
+
+/* Botões de ação da nota */
 .note .actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
 }
+
 .note .action-btn {
-  background: #f0f0f0;
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  line-height: 1;
-  padding: 6px;
+  font-size: 14px;
+  padding: 4px 8px;
   border-radius: 6px;
   transition: all 0.3s ease;
-  color: #333;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
+
 .note .action-btn.edit {
   background: #4caf50;
   color: white;
 }
+
 .note .action-btn.edit:hover {
   background: #45a049;
   transform: scale(1.1);
 }
+
 .note .action-btn.delete {
   background: #f44336;
   color: white;
 }
+
 .note .action-btn.delete:hover {
   background: #d32f2f;
   transform: scale(1.1);
 }
+
+/* Botão adicionar nota */
 .add-note {
-  margin-top: 15px;
-  font-size: 24px;
-  padding: 10px 20px;
-  border: none;
+  align-self: center;
+  font-size: 26px;
+  padding: 12px;
   border-radius: 50%;
   background: #27187e;
   color: white;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.3s ease;
+  transition: all 0.3s ease;
 }
+
 .add-note:hover {
-  background: #27187e;
-  transform: rotate(90deg);
+  background: #1e1363;
+  transform: rotate(90deg) scale(1.1);
 }
+
+/* Botão abrir notas */
 .open-notes-btn {
   position: fixed;
-  bottom: 73px;
-  right: 20px;
-  background-color: #fff;
-  color: rgb(26, 11, 11);
+  bottom: 80px;
+  right: 25px;
+  background-color: #27187e;
+  color: white;
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
+  width: 55px;
+  height: 55px;
+  font-size: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
 }
+
 .open-notes-btn:hover {
-  background-color: #27187e;
-  transform: scale(1.1);
+  transform: scale(1.1) rotate(15deg);
+  background-color: #1e1363;
 }
 section.main-section {
   display: grid !important;
@@ -340,4 +348,31 @@ section.main-section {
   .carousel-btn.prev { left: -18px; }
   .carousel-btn.next { right: -18px; }
   .emoji-list .emoji { font-size: 32px; }
+}
+
+
+#button_add{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.note .action-btn.edit {
+  background: #4caf50;
+  color: white;
+}
+
+.note .action-btn.edit:hover {
+  background: #45a049;
+  transform: scale(1.1);
+}
+
+.note .action-btn.delete {
+  background: #f44336;
+  color: white;
+}
+
+.note .action-btn.delete:hover {
+  background: #d32f2f;
+  transform: scale(1.1);
 }

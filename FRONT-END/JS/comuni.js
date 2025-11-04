@@ -1,18 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
   // -------------------------
+  // IDENTIFICAÇÃO DO USUÁRIO
+  // -------------------------
+  const usuario_id = localStorage.getItem("id");
+  const usuario_nome = localStorage.getItem("nome");
+
+
+
+  // -------------------------
   // ELEMENTOS DO CHAT
   // -------------------------
   const chatContainer = document.getElementById("chatContainer");
   const messageInput = document.getElementById("messageInput");
   const sendButton = document.getElementById("sendButton");
-  const usuario_id = localStorage.getItem("usuario_id") || "1";
 
-  let lastMessages = [];
+  if (!chatContainer || !messageInput || !sendButton) {
+    console.error("Alguns elementos do chat não foram encontrados no DOM.");
+    return;
+  }
 
-  // Criar mensagem no chat
-  function appendMessage(text, userName = "Você") {
+  function appendMessage(text, userName = "Usuário", id) {
+    const isUsuario = id == usuario_id || id == undefined;
     const msg = document.createElement("div");
-    msg.className = "message";
+    msg.className = isUsuario ? "message-dir" : "message-esq";
 
     const bubble = document.createElement("div");
     bubble.className = "bubble";
@@ -28,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     chatContainer.scrollTop = chatContainer.scrollHeight;
   }
 
-  // Enviar mensagem
   async function sendMessage() {
     const text = messageInput.value.trim();
     if (!text) return;
@@ -37,26 +46,17 @@ document.addEventListener("DOMContentLoaded", () => {
     messageInput.focus();
 
     try {
-<<<<<<< HEAD
       const res = await fetch("http://localhost:3000/Comunidade/Mensagem", {
-=======
-      const res = await fetch("http://192.168.1.10:3000/Comunidade/Mensagem", {
->>>>>>> e7d85d78ca266eb093f81fc1b02df9b665c78f9c
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ usuario_id, mensagem: text }),
+        body: JSON.stringify({ usuario_id, usuario_nome, mensagem: text }),
       });
 
-      if (res.ok) 
-      {              
-        // chatContainer.remove()
-<<<<<<< HEAD
-        appendMessage(text, "Você");
-=======
-        appendMessage(text, "Laís");
->>>>>>> e7d85d78ca266eb093f81fc1b02df9b665c78f9c
+      if (res.ok) {
+        appendMessage(text, usuario_nome, usuario_id);
+      } else {
+        console.error("Erro ao enviar mensagem:", await res.text());
       }
-    
     } catch (err) {
       console.error("Erro ao enviar mensagem:", err);
     }
@@ -70,43 +70,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Buscar mensagens
   async function loadMessages() {
     try {
-<<<<<<< HEAD
-  
-=======
->>>>>>> e7d85d78ca266eb093f81fc1b02df9b665c78f9c
       const res = await fetch("http://localhost:3000/Comunidade/Mensagem");
       const mensagens = await res.json();
-      if(mensagens.length > 0){
-            lastMessages = []
-            const msg = document.querySelectorAll('.message')
-                        console.log(msg
 
+      if (!Array.isArray(mensagens)) return;
 
-
-
-                        )
-
-           msg.forEach(element => {
-        element.remove();
-    });
-      }
+      chatContainer.innerHTML = ""; // limpa o chat
       mensagens.forEach((msg) => {
-        const exists = lastMessages.find((m) => m.id === msg.id);
-        if (!exists) {
-          const name =
-            msg.usuario_id == usuario_id
-              ? "Você"
-<<<<<<< HEAD
-              : `Usuário ${msg.usuario_id}`;
-=======
-              : Usuário `${msg.usuario_id};`
->>>>>>> e7d85d78ca266eb093f81fc1b02df9b665c78f9c
-          appendMessage(msg.mensagem, name);
-          lastMessages.push(msg);
-        }
+        const name =
+          msg.usuario_id == usuario_id
+            ? usuario_nome
+            : msg.usuario_nome || `Usuário ${msg.usuario_id}`;
+        appendMessage(msg.mensagem, name, msg.usuario_id);
       });
     } catch (err) {
       console.error("Erro ao buscar mensagens:", err);
@@ -125,7 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const notesContainer = document.getElementById("notesContainer");
   const addNoteBtn = document.getElementById("addNoteBtn");
 
-  // Abrir e fechar modal
+  if (!notesModal || !openNotesBtn || !closeModal || !notesContainer || !addNoteBtn) {
+    console.warn("Alguns elementos do bloco de notas não foram encontrados.");
+    return;
+  }
+
   openNotesBtn.addEventListener("click", () => {
     notesModal.style.display = "block";
     loadNotes();
@@ -139,8 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.target === notesModal) notesModal.style.display = "none";
   });
 
-  // Função debounce (para salvar com atraso ao digitar)
-  function debounce(func, delay = 600) {
+  function debounce(func, delay = 800) {
     let timer;
     return (...args) => {
       clearTimeout(timer);
@@ -148,107 +128,97 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  // Criar nota na tela
   function createNote(nota) {
-    const note = document.createElement("div");
-    note.classList.add("note");
+  const emptyMsg = notesContainer.querySelector(".empty-msg");
+  if (emptyMsg) emptyMsg.remove();
 
-    const textarea = document.createElement("textarea");
-    textarea.value = nota.conteudo || "";
+  const note = document.createElement("div");
+  note.classList.add("note");
 
-    // Atualizar nota (PUT)
-    const updateNote = debounce(async () => {
-      try {
-<<<<<<< HEAD
+  const textarea = document.createElement("textarea");
+  textarea.value = nota.conteudo || "";
+
+  // Função que cria ou atualiza a nota
+  const saveNote = debounce(async () => {
+    try {
+      if (!nota.id && textarea.value.trim() !== "") {
+        // Cria nota no backend
+        const res = await fetch("http://localhost:3000/Notas", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ usuario_id, conteudo: textarea.value }),
+        });
+        const novaNota = await res.json();
+        nota.id = novaNota.id; // atualiza id da nota criada
+      } else if (nota.id) {
+        // Atualiza nota existente
         await fetch(`http://localhost:3000/Notas/${nota.id}`, {
-=======
-        await fetch(`http://192.168.1.10:3000/Notas/${nota.id}`, {
->>>>>>> e7d85d78ca266eb093f81fc1b02df9b665c78f9c
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ conteudo: textarea.value }),
         });
-      } catch (err) {
-        console.error("Erro ao atualizar nota:", err);
       }
-    });
-
-    textarea.addEventListener("input", updateNote);
-
-    // Botões de ação
-    const actions = document.createElement("div");
-    actions.classList.add("actions");
-
-    const editBtn = document.createElement("button");
-    editBtn.className = "action-btn edit";
-    editBtn.title = "Editar nota";
-    editBtn.textContent = "✏️";
-    editBtn.addEventListener("click", () => textarea.focus());
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.className = "action-btn delete";
-    deleteBtn.title = "Excluir nota";
-    deleteBtn.textContent = "🗑️";
-    deleteBtn.addEventListener("click", async () => {
-      try {
-        const res = await fetch(`http://localhost:3000/Notas/${nota.id}`, {
-          method: "DELETE",
-        });
-        if (!res.ok) throw new Error("Erro ao excluir nota");
-        note.remove();
-
-        // Atualiza lista após excluir
-        const restantes = notesContainer.querySelectorAll(".note");
-        if (restantes.length === 0) {
-          const msg = document.createElement("p");
-          msg.textContent = "Nenhuma nota encontrada.";
-          msg.classList.add("empty-msg");
-          notesContainer.appendChild(msg);
-        }
-      } catch (err) {
-        console.error("Erro ao excluir nota:", err);
-      }
-    });
-
-    actions.appendChild(editBtn);
-    actions.appendChild(deleteBtn);
-
-    note.appendChild(textarea);
-    note.appendChild(actions);
-    notesContainer.appendChild(note);
-  }
-
-  // Adicionar nova nota
-  addNoteBtn.addEventListener("click", async () => {
-    try {
-<<<<<<< HEAD
-      const res = await fetch("http://localhost:3000/Notas", {
-=======
-      const res = await fetch("http://192.168.1.10:3000/Notas", {
->>>>>>> e7d85d78ca266eb093f81fc1b02df9b665c78f9c
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ usuario_id, conteudo: "" }),
-      });
-      const novaNota = await res.json();
-      createNote(novaNota);
     } catch (err) {
-      console.error("Erro ao criar nota:", err);
+      console.error("Erro ao salvar nota:", err);
+    }
+  }, 800);
+
+  textarea.addEventListener("input", saveNote);
+
+  const actions = document.createElement("div");
+  actions.classList.add("actions");
+
+  const editBtn = document.createElement("button");
+  editBtn.className = "action-btn edit";
+  editBtn.title = "Editar nota";
+  editBtn.textContent = "✏️";
+  editBtn.addEventListener("click", () => textarea.focus()); // só foca
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.className = "action-btn delete";
+  deleteBtn.title = "Excluir nota";
+  deleteBtn.textContent = "🗑️";
+  deleteBtn.addEventListener("click", async () => {
+    try {
+      if (!nota.id) return;
+      const res = await fetch(`http://localhost:3000/Notas/${nota.id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Erro ao excluir nota");
+      note.remove();
+
+      if (!notesContainer.querySelector(".note")) {
+        const msg = document.createElement("p");
+        msg.textContent = "Nenhuma nota encontrada.";
+        msg.classList.add("empty-msg");
+        notesContainer.appendChild(msg);
+      }
+    } catch (err) {
+      console.error("Erro ao excluir nota:", err);
     }
   });
 
-  // Carregar notas do usuário
-  async function loadNotes() {
-    notesContainer.innerHTML = "";
-    try {
-<<<<<<< HEAD
-      const res = await fetch(`http://localhost:3000/Notas/${usuario_id}`);
-=======
-      const res = await fetch(`http://192.168.1.10:3000/Notas/${usuario_id}`);
->>>>>>> e7d85d78ca266eb093f81fc1b02df9b665c78f9c
-      const notas = await res.json();
+  actions.appendChild(editBtn);
+  actions.appendChild(deleteBtn);
 
-      if (notas.length === 0) {
+  note.appendChild(textarea);
+  note.appendChild(actions);
+  notesContainer.appendChild(note);
+}
+
+
+  addNoteBtn.addEventListener("click", () => {
+    createNote({}); // Cria nota em branco no frontend (será salva só ao digitar)
+  });
+
+  async function loadNotes() {
+    try {
+      const res = await fetch(`http://localhost:3000/Notas/${usuario_id}`);
+      const data = await res.json();
+
+      const notas = Array.isArray(data) ? data : [];
+
+      notesContainer.innerHTML = "";
+
+      if (!notas.length) {
         const msg = document.createElement("p");
         msg.textContent = "Nenhuma nota encontrada.";
         msg.classList.add("empty-msg");
