@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     messageInput.focus();
 
     try {
-      const res = await fetch("http://localhost:3000/Comunidade/Mensagem", {
+      const res = await fetch("http://192.168.1.19:3000/Comunidade/Mensagem", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usuario_id, usuario_nome, mensagem: text }),
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadMessages() {
     try {
-      const res = await fetch("http://localhost:3000/Comunidade/Mensagem");
+      const res = await fetch("http://192.168.1.19:3000/Comunidade/Mensagem");
       const mensagens = await res.json();
 
       if (!Array.isArray(mensagens)) return;
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       if (!nota.id && textarea.value.trim() !== "") {
         // Cria nota no backend
-        const res = await fetch("http://localhost:3000/Notas", {
+        const res = await fetch("http://192.168.1.19:3000/Notas", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ usuario_id, conteudo: textarea.value }),
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nota.id = novaNota.id; // atualiza id da nota criada
       } else if (nota.id) {
         // Atualiza nota existente
-        await fetch(`http://localhost:3000/Notas/${nota.id}`, {
+        await fetch(`http://192.168.1.19:3000/Notas/${nota.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ conteudo: textarea.value }),
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
   deleteBtn.addEventListener("click", async () => {
     try {
       if (!nota.id) return;
-      const res = await fetch(`http://localhost:3000/Notas/${nota.id}`, { method: "DELETE" });
+      const res = await fetch(`http://192.168.1.19:3000/Notas/${nota.id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Erro ao excluir nota");
       note.remove();
 
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadNotes() {
     try {
-      const res = await fetch(`http://localhost:3000/Notas/${usuario_id}`);
+      const res = await fetch(`http://192.168.1.19:3000/Notas/${usuario_id}`);
       const data = await res.json();
 
       const notas = Array.isArray(data) ? data : [];
