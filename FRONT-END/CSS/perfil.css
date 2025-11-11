@@ -204,6 +204,7 @@ header {
     flex-direction: column-reverse;
     padding: 60px 20px 120px 20px;
     gap: 60px;
+    align-items: center;
   }
 
   .dados-usuario input {
@@ -212,16 +213,21 @@ header {
   }
 
   .botao-concluido {
-    position: relative;
+    position: relative;        
     bottom: 0;
-    transform: none;
-    width: 80%;
+    left: 0;
+    transform: none;           
+    width: 90%;                
     max-width: 300px;
+    padding: 12px 0;           
+    text-align: center;
+    margin: 20px 0;           
   }
 
   .botoes {
     flex-direction: column;
     gap: 15px;
+    align-items: center;
   }
 
   .botoes button {

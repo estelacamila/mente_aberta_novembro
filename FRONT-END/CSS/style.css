@@ -28,6 +28,7 @@ header {
   justify-content: space-between;
   padding: 10px 15px;
 }
+
 .menu-container {
   position: relative;
 }
@@ -45,7 +46,7 @@ header {
 }
 
 .menu-items {
-   display: none;
+  display: none;
   flex-direction: column;
   position: absolute;
   top: 40px;
@@ -61,7 +62,7 @@ header {
 }
 
 .menu-items li {
- list-style: none;
+  list-style: none;
   border-bottom: 1px solid #ccc;
   gap: 10px;
   margin-bottom: 10px;
@@ -84,6 +85,7 @@ header {
 #menu-toggle:checked + .hamburger + .menu-items {
   display: flex;
 }
+
 .logo {
   font-size: 1.8em;
   font-weight: bold;
@@ -98,7 +100,6 @@ header {
   cursor: pointer;
   font-weight: 500;
 }
-
 
 /* ==============================
    🧩 SEÇÃO INTRO (TEXTO + CARROSSEL)
@@ -182,9 +183,11 @@ header {
   padding: 5px 15px;
   border-radius: 50%;
 }
+
 .prev:hover, .next:hover {
   background-color: rgba(0, 0, 0, 0.6);
 }
+
 .prev {
   left: 10px;
 }
@@ -197,14 +200,12 @@ header {
 ============================== */
 .humor {
   text-align: center;
-  padding: 20px ;
+  padding: 20px;
   background-color: #D9EAF7;
   border-radius: 20px;
-  width: 90%;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   width: 50%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   margin: auto;
-
 }
 
 .humor h3 {
@@ -270,89 +271,183 @@ header {
 .modal {
   display: none;
   position: fixed;
-  z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.4s ease;
 }
 
 .modal-content {
-  background-color: #7FB3D5;
-  margin: 8% auto;
+  background: #f5f5f5;
+  color: #333;
+  margin: 0 20px;
   padding: 25px;
+  border-radius: 20px;
   width: 90%;
-  max-width: 600px;
-  border-radius: 15px;
+  max-width: 800px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   text-align: center;
-  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  max-height: 80vh;
+  overflow-y: auto;
   position: relative;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* Botão fechar modal */
 .close {
   position: absolute;
   top: 15px;
   right: 20px;
-  font-size: 1.8rem;
+  font-size: 30px;
+  font-weight: bold;
   cursor: pointer;
-  color: white;
-  border: none;
-  background: none;
+  transition: transform 0.3s ease;
 }
 
+.close:hover {
+  transform: scale(1.2);
+  color: #e74c3c;
+}
+
+/* Container de notas */
 .notes-container {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
-  margin: 20px 0;
+  gap: 20px;           /* espaço entre notas */
+  flex-wrap: wrap;      /* quebra para a próxima linha se necessário */
+  overflow-x: auto;     /* rolagem horizontal se necessário */
+  padding: 10px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #27187e transparent;
 }
 
-.note {
-  background-color: #fff;
-  color: #000;
-  width: 150px;
-  min-height: 120px;
+
+.notes-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.notes-container::-webkit-scrollbar-thumb {
+  background-color: #27187e;
   border-radius: 10px;
+}
+
+/* Card individual de nota */
+.note {
+  width: 140px;
+  height: 140px;
+  background: #fff;
+  color: #333;
   padding: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  position: relative;
-}
-
-.note button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-.note .edit {
-  color: #004E89;
-}
-.note .delete {
-  color: #c0392b;
-}
-
-.add-note {
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Área de texto da nota */
+.note textarea {
+  flex: 1;
+  border: none;
+  resize: none;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  background: transparent;
+  color: #333;
+}
+
+/* Botões de ação da nota */
+.note .actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.note .action-btn {
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.note .action-btn.edit {
+  background: #4caf50;
+  color: white;
+}
+
+.note .action-btn.edit:hover {
+  background: #45a049;
+  transform: scale(1.1);
+}
+
+.note .action-btn.delete {
+  background: #f44336;
+  color: white;
+}
+
+.note .action-btn.delete:hover {
+  background: #d32f2f;
+  transform: scale(1.1);
+}
+
+/* Botão adicionar nota */
+.add-note {
+  display: flex;
   justify-content: center;
-  background-color: #004E89;
-  
+  align-items: center;
+  background-color: #27187e;
   color: #fff;
   border: none;
-  padding: 10px 25px;
-  font-size: 1.3rem;
-  border-radius: 25px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  font-size: 32px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  margin: 20px auto 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
+
 .add-note:hover {
-  background-color: #003366;
+  background-color: #3a26c1;
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* Botão abrir notas */
+.open-notes-btn {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #27187e;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.open-notes-btn:hover {
+  transform: translateX(-50%) scale(1.1) rotate(15deg);
+  background-color: #1e1363;
 }
 
 /* Botão flutuante */
@@ -371,6 +466,7 @@ header {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   z-index: 1500;
 }
+
 .floating-btn:hover {
   transform: scale(1.1);
   background-color: #002D62;
@@ -400,14 +496,17 @@ footer {
   text-decoration: none;
   font-weight: 500;
 }
+
 .footer-btn:hover {
   background-color: #003f8a;
 }
+
 #text {
-text-align:justify;
-width: 25%;
-color: white;
+  text-align: justify;
+  width: 25%;
+  color: white;
 }
+
 #canto{
   width: 25%;
 }
@@ -437,7 +536,7 @@ color: white;
 
 @media (max-width: 600px) {
   header {
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
   }
 
@@ -492,15 +591,15 @@ color: white;
 }
 
 .modal-content {
-  background-color: #7FB3D5;
-  color: #fff;
-  margin: 10% auto;
-  padding: 30px;
-  width: 85%;
-  max-width: 600px;
+  background: #3987d0;
+  margin: 6% auto;
+  padding: 25px;
   border-radius: 20px;
-  text-align: left;
-  position: relative;
+  width: 85%;
+  max-width: 700px;
+  color: #fff;
+  box-shadow: 0 0 25px rgba(0,0,0,0.5);
+  text-align: center;
 }
 
 .modal-content h2 {

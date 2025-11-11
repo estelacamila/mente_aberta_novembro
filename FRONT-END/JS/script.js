@@ -1,21 +1,22 @@
-/* ======= home.js (corrigido) ======= */
+/* ======= home.js (corrigido e funcional com edição e exclusão) ======= */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   /* ======= MODO ESCURO ======= */
-  const darkToggle = document.getElementById('darkModeToggle');
+  const darkToggle = document.getElementById("darkModeToggle");
   if (darkToggle) {
-    darkToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      darkToggle.textContent =
-        document.body.classList.contains('dark') ? '☀️ Modo Claro' : '🌙 Modo Escuro';
+    darkToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      darkToggle.textContent = document.body.classList.contains("dark")
+        ? "☀️ Modo Claro"
+        : "🌙 Modo Escuro";
     });
   }
 
-  /* ======= CARROSSEL (deslizamento real) ======= */
-  const carouselEl = document.querySelector('.carousel');
-  const track = document.querySelector('.carousel-container');
-  const prevBtn = document.querySelector('.prev');
-  const nextBtn = document.querySelector('.next');
+  /* ======= CARROSSEL ======= */
+  const carouselEl = document.querySelector(".carousel");
+  const track = document.querySelector(".carousel-container");
+  const prevBtn = document.querySelector(".prev");
+  const nextBtn = document.querySelector(".next");
 
   if (carouselEl && track) {
     let slideIndex = 0;
@@ -26,25 +27,24 @@ document.addEventListener('DOMContentLoaded', () => {
       track.style.transform = `translateX(${-slideIndex * w}px)`;
     }
 
-    // botões
-    if (nextBtn) nextBtn.addEventListener('click', () => {
-      slideIndex = (slideIndex + 1) % slides.length;
-      updateCarousel();
-    });
-    if (prevBtn) prevBtn.addEventListener('click', () => {
-      slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-      updateCarousel();
-    });
+    if (nextBtn)
+      nextBtn.addEventListener("click", () => {
+        slideIndex = (slideIndex + 1) % slides.length;
+        updateCarousel();
+      });
+    if (prevBtn)
+      prevBtn.addEventListener("click", () => {
+        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+        updateCarousel();
+      });
 
-    // auto-rotate
     let auto = setInterval(() => {
       slideIndex = (slideIndex + 1) % slides.length;
       updateCarousel();
     }, 5000);
 
-    // pause on hover
-    carouselEl.addEventListener('mouseenter', () => clearInterval(auto));
-    carouselEl.addEventListener('mouseleave', () => {
+    carouselEl.addEventListener("mouseenter", () => clearInterval(auto));
+    carouselEl.addEventListener("mouseleave", () => {
       clearInterval(auto);
       auto = setInterval(() => {
         slideIndex = (slideIndex + 1) % slides.length;
@@ -52,114 +52,200 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 5000);
     });
 
-    // recalc on resize
-    window.addEventListener('resize', updateCarousel);
-
-    // initial position
+    window.addEventListener("resize", updateCarousel);
     updateCarousel();
   }
 
   /* ======= EMOJIS DE HUMOR ======= */
-  const emojis = document.querySelectorAll('.emoji');
-  const humorMessage = document.getElementById('humorMessage');
+  const emojis = document.querySelectorAll(".emoji");
+  const humorMessage = document.getElementById("humorMessage");
   if (emojis && humorMessage) {
     emojis.forEach((emoji) => {
-      emoji.addEventListener('click', () => {
-        const msg = emoji.getAttribute('data-msg') || '';
+      emoji.addEventListener("click", () => {
+        const msg = emoji.getAttribute("data-msg") || "";
         humorMessage.textContent = msg;
-        humorMessage.classList.add('show');
-        // remove a classe depois de 3s (se quiser apagar o texto, comente a linha abaixo)
-        setTimeout(() => humorMessage.classList.remove('show'), 3000);
+        humorMessage.classList.add("show");
+        setTimeout(() => humorMessage.classList.remove("show"), 3000);
       });
     });
   }
 
-  /* ======= MODAL DE DICAS (cards) ======= */
-  const infoModal = document.getElementById('infoModal');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalText = document.getElementById('modalText');
-  const closeInfoModal = document.getElementById('closeInfoModal');
+  /* ======= MODAL DE DICAS ======= */
+  const infoModal = document.getElementById("infoModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalText = document.getElementById("modalText");
+  const closeInfoModal = document.getElementById("closeInfoModal");
 
-  // textos (já fornecidos antes)
   const dicas = {
     ansiedade: {
       titulo: "Ansiedade",
       texto: `A ansiedade pode vir de repente, mas ela não define você. 🌿
-👉 Experimente o exercício 4-7-8: inspire por 4s, segure por 7s e expire por 8s. Repita 3x.
-Tente também: caminhada curta, música calma ou escrever o que sente.`
+👉 Inspire por 4s, segure por 7s e expire por 8s. Repita 3x.`,
     },
     depressao: {
       titulo: "Depressão",
-      texto: `A depressão é uma batalha silenciosa, não precisa ser enfrentada sozinha/o. 💙
-👉 Faça uma pequena tarefa (abrir janela, banho rápido, caminhar). Cada passo conta.
-Procure um amigo de confiança ou ajuda profissional quando puder.`
+      texto: `A depressão é uma batalha silenciosa. 💙
+👉 Cada pequeno passo importa — abrir uma janela, caminhar, conversar.`,
     },
     luto: {
       titulo: "Luto",
-      texto: `O luto é o amor em processo de reorganização. 🕊️
-👉 Permita-se sentir; escrever uma carta pode ajudar a expressar emoções.
-Compartilhar lembranças com alguém de confiança ajuda a transformar a saudade em carinho.`
+      texto: `O luto é o amor em reorganização. 🕊️
+👉 Permita-se sentir e compartilhar lembranças.`,
     },
     autismo: {
       titulo: "Autismo",
-      texto: `O autismo é um jeito único de experienciar o mundo. 💫
-👉 Ofereça paciência, reduza estímulos excessivos e respeite o tempo da pessoa.
-Valorize pequenas conquistas e comunique-se de forma clara e gentil.`
+      texto: `O autismo é um jeito único de experienciar o mundo. 💫`,
     },
     conflitos: {
       titulo: "Conflitos familiares",
-      texto: `Conflitos são normais, mas podem ser oportunidades de crescimento. ❤️
-👉 Respire antes de responder, evite acusações e fale sobre sentimentos.
-Proponha um momento calmo para conversar e busque escuta ativa.`
-    }
+      texto: `Conflitos são oportunidades de crescimento. ❤️`,
+    },
   };
 
-  // abre modal ao clicar no card
-  document.querySelectorAll('.card[data-topic]').forEach(card => {
-    card.addEventListener('click', () => {
+  document.querySelectorAll(".card[data-topic]").forEach((card) => {
+    card.addEventListener("click", () => {
       const topic = card.dataset.topic;
       if (dicas[topic]) {
         modalTitle.textContent = dicas[topic].titulo;
         modalText.textContent = dicas[topic].texto;
-        if (infoModal) infoModal.style.display = 'block';
+        if (infoModal) infoModal.style.display = "block";
       }
     });
   });
 
-  // fecha modal ao clicar no X
-  if (closeInfoModal) closeInfoModal.addEventListener('click', () => {
-    if (infoModal) infoModal.style.display = 'none';
+  if (closeInfoModal)
+    closeInfoModal.addEventListener("click", () => {
+      if (infoModal) infoModal.style.display = "none";
+    });
+
+  /* ======= BLOCO DE NOTAS FUNCIONAL ======= */
+  const notesModal = document.getElementById("notesModal");
+  const openNotesBtn = document.getElementById("addNoteBtn");
+  const closeNotesBtn = document.getElementById("closeModal");
+  const notesContainer = document.getElementById("notesContainer");
+  const newNoteBtn = document.getElementById("newNoteBtn");
+
+  const usuario_id = localStorage.getItem("id");
+
+  if (openNotesBtn)
+    openNotesBtn.addEventListener("click", () => {
+      notesModal.style.display = "block";
+      loadNotes();
+    });
+
+  if (closeNotesBtn)
+    closeNotesBtn.addEventListener("click", () => {
+      notesModal.style.display = "none";
+    });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === notesModal) notesModal.style.display = "none";
   });
 
-  /* ======= BLOCO DE NOTAS (modal separado) ======= */
-  const notesModal = document.getElementById('notesModal');
-  const addNoteBtn = document.getElementById('addNoteBtn');
-  const closeNotesBtn = document.getElementById('closeModal');
-  const newNoteBtn = document.getElementById('newNoteBtn');
-  const notesContainer = document.getElementById('notesContainer');
+  function debounce(func, delay = 600) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => func(...args), delay);
+    };
+  }
 
-  if (addNoteBtn && notesModal) {
-    addNoteBtn.addEventListener('click', () => notesModal.style.display = 'block');
-  }
-  if (closeNotesBtn && notesModal) {
-    closeNotesBtn.addEventListener('click', () => notesModal.style.display = 'none');
-  }
-  if (newNoteBtn && notesContainer) {
-    newNoteBtn.addEventListener('click', () => {
-      const div = document.createElement('div');
-      div.className = 'note';
-      div.contentEditable = true;
-      div.textContent = 'Nova nota...'; 
-      notesContainer.appendChild(div);
+  function createNote(nota) {
+    const note = document.createElement("div");
+    note.classList.add("note");
+
+    const textarea = document.createElement("textarea");
+    textarea.value = nota.conteudo || "";
+
+    const actions = document.createElement("div");
+    actions.classList.add("actions");
+
+    const editBtn = document.createElement("button");
+    editBtn.className = "action-btn edit";
+    editBtn.innerHTML = "✏️";
+    editBtn.title = "Editar nota";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "action-btn delete";
+    deleteBtn.innerHTML = "🗑️";
+    deleteBtn.title = "Excluir nota";
+
+    actions.appendChild(editBtn);
+    actions.appendChild(deleteBtn);
+    note.appendChild(textarea);
+    note.appendChild(actions);
+    notesContainer.appendChild(note);
+
+    const updateNote = debounce(async () => {
+      try {
+        if (!nota.id && textarea.value.trim() !== "") {
+          const res = await fetch("http://192.168.1.40:3000/Notas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              usuario_id,
+              conteudo: textarea.value,
+            }),
+          });
+          const nova = await res.json();
+          nota.id = nova.id;
+        } else if (nota.id) {
+          await fetch(`http://192.168.1.40:3000/Notas/${nota.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ conteudo: textarea.value }),
+          });
+        }
+      } catch (err) {
+        console.error("Erro ao salvar nota:", err);
+      }
+    }, 800);
+
+    textarea.addEventListener("input", updateNote);
+
+    editBtn.addEventListener("click", () => textarea.focus());
+
+    deleteBtn.addEventListener("click", async () => {
+      if (!nota.id) {
+        note.remove();
+        return;
+      }
+      try {
+        const res = await fetch(`http://192.168.1.40:3000/Notas/${nota.id}`, {
+          method: "DELETE",
+        });
+        if (!res.ok) throw new Error("Erro ao excluir nota");
+        note.remove();
+      } catch (err) {
+        console.error("Erro ao excluir:", err);
+      }
     });
   }
 
-  /* ======= EVENTO GLOBAL DE CLIQUE PARA FECHAR MODAIS (sem sobrescrever) ======= */
-  document.addEventListener('click', (e) => {
-    // se clicou no fundo do infoModal
-    if (infoModal && e.target === infoModal) infoModal.style.display = 'none';
-    // se clicou no fundo do notesModal
-    if (notesModal && e.target === notesModal) notesModal.style.display = 'none';
-  });
+  async function loadNotes() {
+    if (!usuario_id) return;
+    try {
+      const res = await fetch(`http://192.168.1.40:3000/Notas/${usuario_id}`);
+      const notas = await res.json();
 
+      notesContainer.innerHTML = "";
+
+      if (!notas || notas.length === 0) {
+        const msg = document.createElement("p");
+        msg.textContent = "Nenhuma nota encontrada.";
+        msg.classList.add("empty-msg");
+        notesContainer.appendChild(msg);
+        return;
+      }
+
+      notas.forEach((n) => createNote(n));
+    } catch (err) {
+      console.error("Erro ao carregar notas:", err);
+    }
+  }
+
+  if (newNoteBtn)
+    newNoteBtn.addEventListener("click", () => {
+      createNote({});
+    });
 });
