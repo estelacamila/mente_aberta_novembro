@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    const response = await fetch(`http://192.168.1.40:3000/Perfil/${id}`);
+    const response = await fetch(`https://back-render-vpda.onrender.com/Perfil/${id}`);
     if (!response.ok) throw new Error('Erro ao buscar dados do usuário.');
 
     const data = await response.json();

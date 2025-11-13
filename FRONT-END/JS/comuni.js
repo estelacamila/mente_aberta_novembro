@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     messageInput.focus();
 
     try {
-      const res = await fetch("http://192.168.1.40:3000/Comunidade/Mensagem", {
+      const res = await fetch("https://back-render-vpda.onrender.com/Comunidade/Mensagem", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usuario_id, usuario_nome, mensagem: text }),
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadMessages() {
     try {
-      const res = await fetch("http://192.168.1.40:3000/Comunidade/Mensagem");
+      const res = await fetch("https://back-render-vpda.onrender.com/Comunidade/Mensagem");
       const mensagens = await res.json();
 
       if (!Array.isArray(mensagens)) return;
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         // Criação de nova nota
         if (!nota.id && textarea.value.trim() !== "") {
-          const res = await fetch("http://192.168.1.40:3000/Notas", {
+          const res = await fetch("https://back-render-vpda.onrender.com/Notas", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         // Atualização
         else if (nota.id) {
-          await fetch(`http://192.168.1.40:3000/Notas/${nota.id}`, {
+          await fetch(`https://back-render-vpda.onrender.com/Notas/${nota.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ conteudo: textarea.value }),
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!usuario_id || !nota.id) return;
 
       try {
-        const res = await fetch(`http://192.168.1.40:3000/Notas/${nota.id}`, {
+        const res = await fetch(`https://back-render-vpda.onrender.com/Notas/${nota.id}`, {
           method: "DELETE",
         });
         if (!res.ok) throw new Error("Erro ao excluir nota");
@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadNotes() {
     try {
-      const res = await fetch(`http://192.168.1.40:3000/Notas/${usuario_id}`);
+      const res = await fetch(`https://back-render-vpda.onrender.com/Notas/${usuario_id}`);
       const notas = await res.json();
 
       notesContainer.innerHTML = "";

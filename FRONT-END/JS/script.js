@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadNotes() {
     if (!usuario_id) return;
     try {
-      const res = await fetch(`http://192.168.1.40:3000/Notas/${usuario_id}`);
+      const res = await fetch(`https://back-render-vpda.onrender.com/Notas/${usuario_id}`);
       const notas = await res.json();
 
       notesContainer.innerHTML = "";
