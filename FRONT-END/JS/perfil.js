@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 🔹 Carregar dados do usuário
   try {
-    const response = await fetch(`https://back-render-vpda.onrender.com/Perfil/${id}`);
+    const response = await fetch(`http://192.168.1.19:3000/Perfil/${id}`);
     if (!response.ok) throw new Error('Erro ao buscar dados do usuário.');
 
     const data = await response.json();
@@ -89,7 +89,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
+<<<<<<< HEAD
       const response = await fetch(`https://back-render-vpda.onrender.com/Perfil/${id}`, {
+=======
+      const response = await fetch(`http://192.168.1.19:3000/Perfil/${id}`, {
+>>>>>>> 2a02fea908075aafdffd2d57e0b208b6f7250f03
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome, senha, foto }),
@@ -108,10 +112,33 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
+<<<<<<< HEAD
 // 🔹 Função para converter arquivo em Base64
 const toBase64 = (file) => new Promise((resolve, reject) => {
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = () => resolve(reader.result);
   reader.onerror = reject;
+=======
+// Função para redimensionar imagem
+ const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+});
+
+
+// Validação do olhinho da senha
+document.querySelectorAll('.alternar_senha').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetId = btn.getAttribute('data-target');
+    const input = document.getElementById(targetId);
+    const Password = input.type === 'password';
+    input.type = Password ? 'text' : 'password';
+    
+    btn.querySelector('.eye-closed').style.display = Password ? 'none' : 'inline';
+    btn.querySelector('.eye-open').style.display = Password ? 'inline' : 'none';
+  });
+>>>>>>> 2a02fea908075aafdffd2d57e0b208b6f7250f03
 });
