@@ -50,7 +50,7 @@ a{
 }
 .alternar_senha{
     position: absolute;
-    margin-top: 13px;
+    margin-top: 6px;
     right: 5px;
     top: 50%;
     transform: translateY(-50%);
@@ -79,7 +79,7 @@ a{
     height: 50px;
     font-size: 20px;
     border-radius: 8px;
-    color: #27187e;
+    color: #000;
     border: none;
     background-color: #ddd4bb;
     box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);

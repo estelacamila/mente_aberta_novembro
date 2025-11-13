@@ -1,10 +1,51 @@
 /* RESET BÁSICO */
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+.icone-perfil {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff; 
+  border-radius: 50%;
+  width: 43px;
+  height: 43px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.icone-perfil svg {
+  fill: #27187e; 
+  transition: fill 0.3s;
+}
+
+.icone-perfil:hover {
+  background-color: #224b61; 
+}
+
+.icone-perfil:hover svg {
+  fill: #fff; 
+}
+
+
+
+@media (max-width: 768px) {
+  .icone-perfil {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icone-perfil svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
 
 body {
   background-color: #f1eee5;
@@ -124,6 +165,42 @@ header {
   box-shadow: 0px 0px 8px rgba(39, 24, 126, 0.3);
 }
 
+.entrada{
+    width: 100%;
+    border-radius: 8px;
+    
+    margin-top: 20px;
+    font-size: 15px;
+    border: none;
+    box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    box-sizing: border-box;
+}
+.campo_senha{
+    position: relative;
+    width: 100%;
+}
+.campo_senha.entrada{
+    padding-right: 50px;
+}
+.alternar_senha{
+    position: absolute;
+    margin-top: 13px;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    font-size: 20px;
+    padding: 5px;
+}
+.alternar_senha:hover{
+    color: #000;
+}
+
+
 /* PERFIL FOTO E BOTÕES */
 .perfil {
   display: flex;
@@ -171,6 +248,7 @@ header {
 }
 
 /* BOTÃO SALVAR */
+
 .botao-concluido {
   position: absolute;
   left: 50%;
@@ -179,6 +257,7 @@ header {
   background-color: #27187e;
   color: white;
   border: none;
+  align-items: center;
   border-radius: 10px;
   padding: 12px 50px;
   cursor: pointer;
@@ -204,7 +283,6 @@ header {
     flex-direction: column-reverse;
     padding: 60px 20px 120px 20px;
     gap: 60px;
-    align-items: center;
   }
 
   .dados-usuario input {
@@ -213,21 +291,16 @@ header {
   }
 
   .botao-concluido {
-    position: relative;        
+    position: relative;
     bottom: 0;
-    left: 0;
-    transform: none;           
-    width: 90%;                
+    transform: none;
+    width: 80%;
     max-width: 300px;
-    padding: 12px 0;           
-    text-align: center;
-    margin: 20px 0;           
   }
 
   .botoes {
     flex-direction: column;
     gap: 15px;
-    align-items: center;
   }
 
   .botoes button {

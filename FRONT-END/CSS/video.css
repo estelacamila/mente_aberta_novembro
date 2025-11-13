@@ -1,18 +1,19 @@
 /* ------------------------------
    Layout Geral
 --------------------------------*/
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 body {
   font-family: Arial, sans-serif;
-  background-color: var(--bg-color, #f1eee5);
   color: var(--text-color, #222);
   transition: background 0.3s ease, color 0.3s ease;
+  background-color: #f1eee5;
 }
 
+/* HEADER */
 header {
   height: 120px;
   background-color: #27187e;
@@ -79,8 +80,6 @@ header {
   display: flex;
 }
 
-
-
 /* ------------------------------
    Campo de Pesquisa
 --------------------------------*/
@@ -109,7 +108,7 @@ header {
 }
 
 .pesquisa-container button {
-  background-color: #4d90cd;
+  background-color: #27187e;
   border: none;
   padding: 8px 12px;
   border-radius: 8px;
@@ -146,12 +145,12 @@ header {
 }
 
 .category-btn:hover {
-  background-color: #4d90cd;
+  background-color: #27187e;
   color: white;
 }
 
 .category-btn.active {
-  background-color: #4d90cd;
+  background-color: #27187e;
   color: white;
 }
 

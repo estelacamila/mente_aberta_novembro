@@ -74,74 +74,56 @@ background-color:#f1eee5;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   pointer-events: none;
 }
+ 
+/* Ícone de perfil no header */
+.icone-perfil {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff; /* fundo claro para contraste com header escuro */
+  border-radius: 50%;
+  width: 43px;
+  height: 43px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
 
+.icone-perfil svg {
+  fill: #27187e; /* cor do ícone combina com o header */
+  transition: fill 0.3s;
+}
+
+.icone-perfil:hover {
+  background-color: #224b61; /* muda fundo ao passar mouse */
+}
+
+.icone-perfil:hover svg {
+  fill: #fff; /* ícone fica branco */
+}
+
+/* Posicionamento no header */
 header {
-  height: 120px;
-  background-color: #27187e;
-  color: white;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px;
-  position: relative;
-  z-index: 10;
+  padding: 10px 20px;
 }
 
-.logo img {
-  display: block;
-}
-
-/* 🔹 Ícone / foto de perfil dinâmico */
-.perfil-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.perfil-foto {
-  width: 50px;
-  height: 50px;
-  background: white;
-  border-radius: 50%;
-  overflow: hidden; /* garante que a imagem não vaze */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.perfil-foto:hover {
-  transform: scale(1.1);
-  background: #ffcc00;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* imagem dentro do círculo */
-.perfil-foto img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Remover sublinhado do link */
-.perfil-icon a {
-  text-decoration: none;
-}
-
-
-/* Responsividade */
-@media (max-width: 600px) {
-  header {
-    padding: 0 20px;
-  }
-
-  .perfil-foto {
+/* Ajuste responsivo */
+@media (max-width: 768px) {
+  .icone-perfil {
     width: 40px;
     height: 40px;
   }
+
+  .icone-perfil svg {
+    width: 28px;
+    height: 28px;
+  }
 }
+
 
 
 

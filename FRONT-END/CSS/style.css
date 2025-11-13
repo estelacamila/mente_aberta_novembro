@@ -29,6 +29,48 @@ header {
   padding: 10px 15px;
 }
 
+/* Ícone de perfil no header */
+.icone-perfil {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff; 
+  border-radius: 50%;
+  width: 43px;
+  height: 43px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.icone-perfil svg {
+  fill: #27187e; 
+  transition: fill 0.3s;
+}
+
+.icone-perfil:hover {
+  background-color: #224b61; 
+}
+
+.icone-perfil:hover svg {
+  fill: #fff; 
+}
+
+
+
+@media (max-width: 768px) {
+  .icone-perfil {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icone-perfil svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+
 .menu-container {
   position: relative;
 }

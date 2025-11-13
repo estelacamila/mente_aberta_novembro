@@ -14,35 +14,62 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
+  // 🔹 Carregar dados do usuário
   try {
     const response = await fetch(`https://back-render-vpda.onrender.com/Perfil/${id}`);
     if (!response.ok) throw new Error('Erro ao buscar dados do usuário.');
 
     const data = await response.json();
-    nomeInput.value = data.nome || '';    
-    perfilImg.src = data.foto || perfilImg.src;
+    nomeInput.value = data.nome || '';
+    perfilImg.src = data.foto || 'https://static.vecteezy.com/ti/vetor-gratis/p1/2387693-icone-do-perfil-do-usuario-vetor.jpg';
   } catch (error) {
     console.error('Erro ao carregar perfil:', error);
   }
 
+  // 🔹 Abrir seletor de imagem
   editarFotoBtn.addEventListener('click', () => fotoInput.click());
 
-  fotoInput.addEventListener('change', (event) => {
+  // 🔹 Atualizar foto para Base64
+  fotoInput.addEventListener('change', async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    perfilImg.src = URL.createObjectURL(file)
+    try {
+      const base64 = await toBase64(file);
+      perfilImg.src = base64;
 
-    // chamar a rota do back para alterar a imagem do perfil
-  });
-
-  removerFotoBtn.addEventListener('click', () => {
-    if (confirm('Deseja remover sua foto?')) {
-      perfilImg.src =
-        'https://static.vecteezy.com/ti/vetor-gratis/p1/2387693-icone-do-perfil-do-usuario-vetor.jpg';
+      // Salvar no servidor
+      await fetch(`https://back-render-vpda.onrender.com/Perfil/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ foto: base64 }),
+      });
+    } catch (err) {
+      console.error('Erro ao atualizar imagem:', err);
+      alert('❌ Não foi possível atualizar a imagem.');
     }
   });
 
+  // 🔹 Remover foto
+  removerFotoBtn.addEventListener('click', async () => {
+    if (!confirm('Deseja remover sua foto?')) return;
+
+    const padrao = 'https://static.vecteezy.com/ti/vetor-gratis/p1/2387693-icone-do-perfil-do-usuario-vetor.jpg';
+    perfilImg.src = padrao;
+
+    try {
+      await fetch(`https://back-render-vpda.onrender.com/Perfil/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ foto: padrao }),
+      });
+    } catch (err) {
+      console.error('Erro ao remover foto:', err);
+      alert('❌ Não foi possível remover a foto.');
+    }
+  });
+
+  // 🔹 Atualizar nome e senha
   concluidoBtn.addEventListener('click', async (e) => {
     e.preventDefault();
 
@@ -72,19 +99,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (response.ok) {
         alert('✅ Perfil atualizado com sucesso!');
       } else {
-        alert('Erro ao atualizar: ' + (data.message || 'Tente novamente.'));
+        alert('❌ Erro ao atualizar: ' + (data.message || 'Tente novamente.'));
       }
     } catch (error) {
       console.error(error);
-      alert('Erro de conexão com o servidor.');
+      alert('❌ Erro de conexão com o servidor.');
     }
   });
 });
 
-// Função para redimensionar imagem
- const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
+// 🔹 Função para converter arquivo em Base64
+const toBase64 = (file) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = reject;
 });
