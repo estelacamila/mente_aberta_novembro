@@ -10,8 +10,51 @@ body {
   font-family: Arial, sans-serif;
   color: var(--text-color, #222);
   transition: background 0.3s ease, color 0.3s ease;
-  background-color: #f1eee5;
+    background-color: #f1eee5;
+
 }
+
+
+.icone-perfil {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff; 
+  border-radius: 50%;
+  width: 43px;
+  height: 43px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.icone-perfil svg {
+  fill: #27187e; 
+  transition: fill 0.3s;
+}
+
+.icone-perfil:hover {
+  background-color: #224b61; 
+}
+
+.icone-perfil:hover svg {
+  fill: #fff; 
+}
+
+
+
+@media (max-width: 768px) {
+  .icone-perfil {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icone-perfil svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
 
 /* HEADER */
 header {
@@ -265,17 +308,7 @@ header {
   background-color: #357ab7;
 }
 
-/* ------------------------------
-   DARKMODE CONFIGURAÇÃO
---------------------------------*/
-body.dark {
-  --bg-color: #121212;
-  --text-color: #f0f0f0;
-  --card-bg: #1e1e1e;
-  --btn-bg: #2a2a2a;
-  --btn-text: #f0f0f0;
-  --input-bg: #2a2a2a;
-}
+
 
 /* ------------------------------
    Responsividade

@@ -93,13 +93,6 @@ const nextVideo = document.getElementById("nextVideo");
 let currentVideos = [...videos];
 let currentIndex = 0;
 
-// -----------------------------
-// FUNÇÕES PRINCIPAIS
-// -----------------------------
-
-document.getElementById("Trocar").addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-});
 
 function renderVideos(list) {
   videoGrid.innerHTML = "";
