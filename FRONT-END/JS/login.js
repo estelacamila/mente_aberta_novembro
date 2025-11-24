@@ -1,110 +1,125 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Limpa qualquer dado antigo de sessão
-  localStorage.removeItem('id');
-  localStorage.removeItem('email');
-  localStorage.removeItem('nome');
+document.addEventListener("DOMContentLoaded", () => {
 
-  const form = document.querySelector('form');
-  if (!form) {
-    console.error('Formulário não encontrado na página.');
-    return;
+  // Limpa sessão antiga
+  localStorage.removeItem("id");
+  localStorage.removeItem("email");
+  localStorage.removeItem("nome");
+
+  const form = document.querySelector("form");
+  const emailInput = document.querySelector("#email");
+  const passwordInput = document.querySelector("#senha");
+
+  // ALERTA BONITO
+  const alertOverlay = document.getElementById("customAlert");
+  const alertMessage = document.getElementById("alertMessage");
+  const alertBtn = document.getElementById("alertBtn");
+
+  // ===== FUNÇÃO DE ALERTA BONITO =====
+  function showAlert(msg, type = "error") {
+
+    alertMessage.textContent = msg;
+
+    // remove estilos anteriores
+    alertOverlay.classList.remove("alert-error", "alert-success");
+
+    // aplica estilo novo
+    if (type === "success") {
+      alertOverlay.classList.add("alert-success");
+    } else {
+      alertOverlay.classList.add("alert-error");
+    }
+
+    alertOverlay.style.display = "flex";
   }
 
-  const emailInput = form.querySelector('#email');
-  const passwordInput = form.querySelector('#senha');
+  alertBtn.addEventListener("click", () => {
+    alertOverlay.style.display = "none";
+  });
 
-  if (!emailInput || !passwordInput) {
-    console.error('Inputs tipo email/senha não encontrados. Verifique o HTML.');
-    return;
-  }
-
-  // Cria elemento de mensagem se não existir
-  let messageEl = document.getElementById('loginMessage');
-  if (!messageEl) {
-    messageEl = document.createElement('p');
-    messageEl.id = 'loginMessage';
-    messageEl.setAttribute('aria-live', 'polite');
-    const btn = form.querySelector('button, input[type="submit"]');
-    if (btn && btn.parentNode) btn.parentNode.insertBefore(messageEl, btn.nextSibling);
-    else form.appendChild(messageEl);
-  }
-
-  // Evento de envio do formulário
-  form.addEventListener('submit', async (e) => {
+  // ===== SUBMIT =====
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
+    const senha = passwordInput.value.trim();
 
-    if (email === '' || password === '') {
-      showMessage(messageEl, 'Preencha todos os campos!', 'red');
+    if (email === "" || senha === "") {
+      showAlert("Preencha todos os campos!", "error");
       return;
     }
 
-    // Validação da senha mínima de 6 caracteres (qualquer caractere)
-    if (password.length < 6) {
-      showMessage(messageEl, 'A senha deve ter no mínimo 6 caracteres!', 'red');
+    if (senha.length < 6) {
+      showAlert("A senha deve ter no mínimo 6 caracteres!", "error");
       return;
     }
 
-    await handleLogin(email, password, messageEl);
+    await handleLogin(email, senha);
   });
-});
 
-// Função de login
-async function handleLogin(email, password, messageEl) {
-  showMessage(messageEl, 'Verificando login...', 'blue');
+  // ===== LOGIN =====
+  async function handleLogin(email, senha) {
+    showAlert("Verificando...", "success");
 
-  try {
-    const response = await fetch('https://back-render-vpda.onrender.com/Login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, senha: password }),
-    });
+    try {
+      const response = await fetch("https://back-render-vpda.onrender.com/Login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha }),
+      });
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => null); // tenta ler JSON, senão null
-      showMessage(messageEl, errorData?.message || `Erro: ${response.statusText}`, 'red');
-      return;
+      const data = await response.json().catch(() => null);
+
+      // ❌ ERRO
+      if (!response.ok) {
+
+        // Email não existe
+        if (data?.message === "Email não encontrado") {
+          showAlert("Este e-mail não está cadastrado!", "error");
+          return;
+        }
+
+        // Senha incorreta
+        if (
+          data?.message === "Senha incorreta" ||
+          data?.message === "Email ou Senha incorreta" ||
+          data?.message === "Senha inválida"
+        ) {
+          showAlert("E-mail e/ou senha incorretos.", "error");
+          return;
+        }
+
+        showAlert(data?.message || "Erro ao tentar fazer login.", "error");
+        return;
+      }
+
+      // ✔ LOGIN OK
+      localStorage.setItem("id", data.id);
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("nome", data.nome);
+
+      showAlert("Login realizado com sucesso! Redirecionando...", "success");
+
+      setTimeout(() => {
+        window.location.href = "./index.html";
+      }, 1000);
+
+    } catch (error) {
+      console.error(error);
+      showAlert("Erro de conexão com o servidor.", "error");
     }
-
-    const data = await response.json();
-
-    // Login bem-sucedido
-    localStorage.setItem('id', data.id);
-    localStorage.setItem('email', data.email);
-    localStorage.setItem('nome', data.nome);
-    showMessage(messageEl, 'Login realizado com sucesso! Redirecionando...', 'green');
-    setTimeout(() => {
-      window.location.href = './index.html';
-    }, 1000); // dá tempo de mostrar a mensagem
-  } catch (error) {
-    console.error('Erro no login:', error);
-    showMessage(messageEl, 'Erro de conexão com o servidor.', 'red');
   }
-}
 
-// Função de exibir mensagens
-function showMessage(el, text, color) {
-  el.style.color = color || 'black';
-  el.textContent = text;
-}
+  // ===== OLHINHO =====
+  document.querySelectorAll(".alternar_senha").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.getAttribute("data-target");
+      const input = document.getElementById(targetId);
 
-// Função de validar e-mail (opcional)
-function validateEmail(email) {
-  const re = /\S+@\S+\.\S+/;
-  return re.test(email);
-}
+      const isPassword = input.type === "password";
+      input.type = isPassword ? "text" : "password";
 
-// Validação do olhinho da senha
-document.querySelectorAll('.alternar_senha').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const targetId = btn.getAttribute('data-target');
-    const input = document.getElementById(targetId);
-    const Password = input.type === 'password';
-    input.type = Password ? 'text' : 'password';
-    
-    btn.querySelector('.eye-closed').style.display = Password ? 'none' : 'inline';
-    btn.querySelector('.eye-open').style.display = Password ? 'inline' : 'none';
+      btn.querySelector(".eye-closed").style.display = isPassword ? "none" : "inline";
+      btn.querySelector(".eye-open").style.display = isPassword ? "inline" : "none";
+    });
   });
 });

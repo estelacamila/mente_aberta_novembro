@@ -1,3 +1,4 @@
+
 /* RESET BÁSICO */
 *{
   margin: 0;
@@ -6,50 +7,186 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.icone-perfil {
+/* FUNDO DO ALERTA */
+.alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
   display: flex;
-  align-items: center;
   justify-content: center;
-  background-color: #fff; 
-  border-radius: 50%;
-  width: 43px;
-  height: 43px;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+/* CAIXA DO ALERTA */
+.alert-box {
+  width: 90%;
+  max-width: 360px;
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 18px;
+  text-align: center;
+
+  /* Sombras suaves e modernas */
+  box-shadow: 
+    0 10px 40px rgba(0,0,0,0.25),
+    0 0 0 1px rgba(255,255,255,0.4) inset;
+
+  animation: alertZoom 0.28s ease-out;
+  transform-origin: center;
+}
+
+/* TEXTO */
+.alert-box p {
+  font-size: 17px;
+  margin-bottom: 20px;
+  color: #222;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* BOTÃO */
+.alert-box button {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 11px 26px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.22s ease;
 }
 
-.icone-perfil svg {
-  fill: #27187e; 
-  transition: fill 0.3s;
+/* HOVER DO BOTÃO */
+.alert-box button:hover {
+  background: #000;
+  transform: scale(1.05);
 }
 
-.icone-perfil:hover {
-  background-color: #224b61; 
-}
-
-.icone-perfil:hover svg {
-  fill: #fff; 
-}
-
-
-
-@media (max-width: 768px) {
-  .icone-perfil {
-    width: 40px;
-    height: 40px;
+/* ANIMAÇÃO */
+@keyframes alertZoom {
+  from {
+    transform: scale(0.80);
+    opacity: 0;
+    filter: blur(4px);
   }
-
-  .icone-perfil svg {
-    width: 28px;
-    height: 28px;
+  to {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0px);
   }
 }
+.campo_senha {
+    position: relative;
+    width: 100%;
+}
+
+.campo_senha .entrada {
+    width: 100%;
+    padding-right: 50px; /* espaço para o olho */
+}
+
+/* Botão do olho */
+.alternar_senha {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%); /* CENTRALIZA PERFEITAMENTE */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ícones SVG */
+.alternar_senha svg {
+    width: 22px;
+    height: 22px;
+    stroke: #333; /* cor do olho */
+}
+
+
+/* BORDA COLORIDA — ERRO */
+.alert-error .alert-box {
+  border-left: 6px solid #ff4d4d;
+  box-shadow: 
+    0 0 20px rgba(255, 77, 77, 0.35),
+    0 10px 40px rgba(0,0,0,0.25);
+}
+
+/* BORDA COLORIDA — SUCESSO */
+.alert-success .alert-box {
+  border-left: 6px solid #2ecc71;
+  box-shadow: 
+    0 0 18px rgba(46, 204, 113, 0.35),
+    0 10px 40px rgba(0,0,0,0.25);
+}
+
+
 
 
 body {
   background-color: #f1eee5;
 }
+
+.campo_senha {
+    position: relative;
+    width: 100%;
+}
+.campo_senha input {
+    padding-right: 50px;
+}
+.alternar_senha {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.alternar_senha svg {
+    width: 22px;
+    height: 22px;
+    stroke: #444;
+    transition: 0.2s ease;
+}
+
+.alternar_senha:hover svg {
+    stroke: #000;
+}
+.eye-open,
+.eye-closed {
+    display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* HEADER */
 header {
@@ -165,42 +302,6 @@ header {
   box-shadow: 0px 0px 8px rgba(39, 24, 126, 0.3);
 }
 
-.entrada{
-    width: 100%;
-    border-radius: 8px;
-    
-    margin-top: 20px;
-    font-size: 15px;
-    border: none;
-    box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.5);
-    padding: 15px;
-    box-sizing: border-box;
-}
-.campo_senha{
-    position: relative;
-    width: 100%;
-}
-.campo_senha.entrada{
-    padding-right: 50px;
-}
-.alternar_senha{
-    position: absolute;
-    margin-top: 13px;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #555;
-    font-size: 20px;
-    padding: 5px;
-}
-.alternar_senha:hover{
-    color: #000;
-}
-
-
 /* PERFIL FOTO E BOTÕES */
 .perfil {
   display: flex;
@@ -248,7 +349,6 @@ header {
 }
 
 /* BOTÃO SALVAR */
-
 .botao-concluido {
   position: absolute;
   left: 50%;
@@ -257,7 +357,6 @@ header {
   background-color: #27187e;
   color: white;
   border: none;
-  align-items: center;
   border-radius: 10px;
   padding: 12px 50px;
   cursor: pointer;
@@ -283,6 +382,7 @@ header {
     flex-direction: column-reverse;
     padding: 60px 20px 120px 20px;
     gap: 60px;
+    align-items: center;
   }
 
   .dados-usuario input {
@@ -291,16 +391,21 @@ header {
   }
 
   .botao-concluido {
-    position: relative;
+    position: relative;        
     bottom: 0;
-    transform: none;
-    width: 80%;
+    left: 0;
+    transform: none;           
+    width: 90%;                
     max-width: 300px;
+    padding: 12px 0;           
+    text-align: center;
+    margin: 20px 0;           
   }
 
   .botoes {
     flex-direction: column;
     gap: 15px;
+    align-items: center;
   }
 
   .botoes button {
@@ -310,4 +415,19 @@ header {
   header {
     flex-direction: row;
   }
+}
+
+/* GARANTE QUE O ALERTA NÃO TRAVE NADA QUANDO FECHADO */
+#customAlert {
+  pointer-events: auto;
+}
+
+#customAlert[style*="display: none"] {
+  pointer-events: none;
+}
+
+/* GARANTE QUE O BOTÃO NÃO FIQUE TRAVADO POR OUTRO ELEMENTO */
+.alert-box button {
+  position: relative;
+  z-index: 10000;
 }

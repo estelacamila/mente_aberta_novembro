@@ -1,72 +1,153 @@
-body{
+/* GERAL --------------------------------------------- */
+body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color:  #27187e;
+    background-color: #27187e;
     min-height: 100vh;
     margin: 0;
+    font-family: Arial, sans-serif;
 }
-a{
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   font-size: large;
-   text-align: center;
-   margin-top: 25px;
-   color: #eae0c7;
-}
-.novo{
-    border: 3px solid black;
-    width: 30%;
+
+/* ALERTA BONITO -------------------------------------- */
+.alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(2px);
 }
-.cabeca{
+
+.alert-box {
+    width: 85%;
+    max-width: 350px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.3);
+    animation: aparecer .25s ease-out;
+}
+
+.alert-box p {
+    font-size: 16px;
+    margin-bottom: 18px;
+    color: #333;
+}
+
+.alert-box button {
+    background: #111;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.alert-box button:hover {
+    background: #333;
+}
+
+@keyframes aparecer {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.alert-error .alert-box {
+    border-left: 6px solid #ff3b3b;
+}
+
+.alert-success .alert-box {
+    border-left: 6px solid #2ecc71;
+}
+
+/* LINK CADASTRE-SE ---------------------------------- */
+a {
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    margin-top: 25px;
+    color: #eae0c7;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* CABEÇA / LOGO ------------------------------------- */
+.cabeca {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center ; 
+    justify-content: center;
 }
-.entrada{
+
+/* INPUTS -------------------------------------------- */
+.entrada {
     width: 100%;
     border-radius: 8px;
     text-align: center;
-    margin-top: 20px;
     font-size: 15px;
     border: none;
     box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.5);
     padding: 15px;
     box-sizing: border-box;
+    height: 55px;
 }
-.campo_senha{
+
+/* CAMPO SENHA + OLHO -------------------------------- */
+.campo_senha {
     position: relative;
     width: 100%;
 }
-.campo_senha.entrada{
+
+.campo_senha input {
     padding-right: 50px;
 }
-.alternar_senha{
+
+.alternar_senha {
     position: absolute;
-    margin-top: 6px;
-    right: 5px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
-    color: #555;
-    font-size: 20px;
-    padding: 5px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.alternar_senha:hover{
-    color: #000;
+
+.alternar_senha svg {
+    width: 22px;
+    height: 22px;
+    stroke: #444;
+    transition: 0.2s ease;
 }
-.campo{
-   display: flex;
-    flex-direction:column;
+
+.alternar_senha:hover svg {
+    stroke: #000;
+}
+
+.eye-open,
+.eye-closed {
+    display: flex;
+}
+
+/* CONTAINER DOS CAMPOS ----------------------------- */
+.campo {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 20px;
     width: 100%;
@@ -74,8 +155,9 @@ a{
     margin-bottom: 30px;
 }
 
-#button{
-     width: 200px;
+/* BOTÃO ENTRAR ------------------------------------- */
+#button {
+    width: 200px;
     height: 50px;
     font-size: 20px;
     border-radius: 8px;
@@ -87,12 +169,7 @@ a{
     display: block;
     margin: 0 auto;
 }
-#button:hover{
+
+#button:hover {
     background-color: #f6f1e3;
-}
-#vago{
- display: flex;
- justify-content: center;
- flex-wrap: wrap;
- gap: 10px;
 }

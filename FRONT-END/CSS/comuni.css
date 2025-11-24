@@ -5,13 +5,14 @@
   box-sizing: border-box;
 }
 
-.chat-container {
-  width: 100vw; /* ocupa toda a largura da tela */
-  margin: 0;
-  padding: 0;
-  overflow-y: auto; /* rolagem vertical */
-  box-sizing: border-box;
- }
+
+
+
+
+ .messages-container {
+    padding-bottom: 140px;
+}
+
 
 /* Estilo mais bonito para a barra */
 ::-webkit-scrollbar {
@@ -221,13 +222,19 @@ header {
 /* 💬 CHAT */
 .chat-container {
   width: 100%;
-  height: 34rem;
+  height: calc(100vh - 180px);
   overflow-y: auto;
-  padding: 10px 420px;
+  padding: 20px 0;
+  padding-bottom: 120px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  box-sizing: border-box;
+   align-items: stretch;
 }
+
+
+
 
 /* 📝 BLOCO DE NOTAS */
 .modal {
@@ -397,15 +404,22 @@ header {
 
 .message-dir {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end !important; /* força o alinhamento */
+  width: 100%; /* permite encostar na borda */
+  padding-right: 340px; /* controle fino da distância da borda */
   gap: 12px;
-  animation: fadeIn 0.4s ease;
 }
+
+
+
 .message-esq {
   display: flex;
   justify-content: left;
   gap: 12px;
   animation: fadeIn 0.4s ease;
+
+  margin-left: 340px;    /* 🔥 afasta da borda esquerda */
+  max-width: 70%;
 }
 
 .message .avatar {
@@ -414,6 +428,7 @@ header {
   background: #333;
   flex: 0 0 40px;
 }
+
 
 .bubble {
   padding: 12px 16px;
@@ -438,18 +453,18 @@ header {
 /* ✏️ ÁREA DE INPUT */
 .chat-input {
   position: fixed;
-  bottom: 30px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+  width: 90%;
+  max-width: 900px;
+  background: #fff;
+  padding: 8px 15px; /* ALTURA REDUZIDA */
+  border-radius: 30px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
   display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(10px);
-  border-radius: 40px;
-  padding: 10px 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 60%;
-  max-width: 700px;
+  gap: 10px;
+  z-index: 9999;
 }
 
 .chat-input input {

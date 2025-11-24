@@ -7,6 +7,7 @@
   <title>Cadastro</title>
 </head>
 <body>
+
   <form id="registerForm" novalidate>
     <div class="campo">
 
@@ -14,16 +15,17 @@
         <img src="../IMG/logo_principal (3).png" alt="logo" width="290" height="270">
       </div>
        
-      <input id="nome" class="entrada" type="text" placeholder="Digite seu primeiro nome..." required >
+      <input id="nome" class="entrada" type="text" placeholder="Digite seu primeiro nome...">
       
       <input id="email" class="entrada" type="email" placeholder="Digite seu email..."
-        title="ex: exemplo@extensão.com" required
+        title="ex: exemplo@extensão.com"
       >
       
       <div class="campo_senha">
         <input id="senha" class="entrada" placeholder="Digite sua senha..."
-          pattern="(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[\W_]).{8,}"
-          title="Mínimo 8 caracteres, incluindo maiúscula, minúscula, número e especial." required
+          pattern="(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[\\W_]).{8,}"
+          title="Mínimo 8 caracteres, incluindo maiúscula, minúscula, número e especial."
+          type="password"
         >
         <button type="button" class="alternar_senha" data-target="senha">
           <span class="eye-open">
@@ -49,8 +51,9 @@
 
       <div class="campo_senha">
         <input id="novasenha" class="entrada" placeholder="Confirme sua senha..."
-          pattern="(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[\W_]).{8,}"
-          title="Mínimo 8 caracteres, incluindo maiúscula, minúscula, número e especial." required
+          pattern="(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[\\W_]).{8,}"
+          title="Mínimo 8 caracteres, incluindo maiúscula, minúscula, número e especial."
+          type="password"
         >
         <button type="button" class="alternar_senha" data-target="novasenha">
           <span class="eye-open">
@@ -67,8 +70,7 @@
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               width="24" height="24">
               <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8
-              a21.57 21.57 0 0 1 5.06-5.94M9.9 4.24A9.77 9.77 0 0 1 12 4
-              c7 0 11 8 11 8a21.57 21.57 0 0 1-2.53 3.33M1 1l22 22"/>
+              a21.57 21.57 0 0 1-2.53 3.33M1 1l22 22"/>
             </svg>
           </span>
         </button>
@@ -80,7 +82,15 @@
     <p id="registerMessage" aria-live="polite"></p>
   </form>
 
-  <!-- Use defer para garantir que o DOM esteja pronto, ou deixe no fim do body (aqui está no fim) -->
+
+  <!-- ⚠️ ALERTA PERSONALIZADO ⚠️ -->
+  <div id="customAlert" class="alert-overlay" style="display: none;">
+    <div class="alert-box">
+      <p id="alertMessage"></p>
+      <button id="alertBtn">OK</button>
+    </div>
+  </div>
+
   <script src="../JS/cadastro.js" defer></script>
 </body>
 </html>

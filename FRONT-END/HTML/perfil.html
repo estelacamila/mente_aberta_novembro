@@ -6,125 +6,166 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil</title>
   <link rel="stylesheet" href="../CSS/perfil.css">
-
-
 </head>
 
 <body>
+
+  <!-- HEADER -->
   <header>
     <div class="menu-container">
-      <input type="checkbox" id="menu-toggle" />
+
+      <input type="checkbox" id="menu-toggle">
+
       <label for="menu-toggle" class="hamburger">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="35" fill="currentColor" class="bi bi-list"
-          viewBox="0 0 16 16" role="img" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="35" fill="currentColor"
+          viewBox="0 0 16 16" aria-label="Menu">
           <path fill-rule="evenodd"
-            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5">
+          </path>
         </svg>
       </label>
 
       <ul class="menu-items">
-        <li id="inicio"><a href="../HTML/index.html">Início</a></li>
-        <li id="videos"><a href="../HTML/video.html">Vídeos</a></li>
-        <li id="comunidade"><a href="../HTML/comuni.html">Comunidade</a></li>
-        <li id="perfil"><a href="../HTML/perfil.html">Perfil</a></li>
-        <li id="sair"><a href="../HTML/login.html">Sair</a></li>
+        <li><a href="../HTML/index.html">Início</a></li>
+        <li><a href="../HTML/video.html">Vídeos</a></li>
+        <li><a href="../HTML/comuni.html">Comunidade</a></li>
+        <li><a href="../HTML/perfil.html">Perfil</a></li>
+        <li><a href="../HTML/login.html">Sair</a></li>
       </ul>
     </div>
 
+    <!-- Logo -->
     <div class="logo">
-      <img src="../IMG/logo_principal (3).png" alt="logo" width="120" height="120" />
+      <img src="../IMG/logo_principal (3).png" alt="logo" width="120" height="120">
     </div>
-     
-     <div class="icone-perfil">
-      <a href="../HTML/perfil.html">
-      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="gray" class="bi bi-person-fill" viewBox="0 0 16 16">
-      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-      </svg>
+
+    <!-- Botão home -->
+    <div class="exit">
+      <a href="../HTML/index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="white"
+          viewBox="0 0 16 16">
+          <path
+            d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 
+             .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 
+             0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 
+             0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5">
+          </path>
+        </svg>
       </a>
     </div>
-
-   
   </header>
 
+  <!-- CONTEÚDO -->
   <main class="container-perfil">
+
+    <!-- LADO ESQUERDO -->
     <div class="grupo-esquerda">
+
       <div class="dados-usuario">
-       <H2>Atualizar Perfil</H2>
-        <input type="text" placeholder="nome" id="nome">
-       
-        <div class="campo_senha">
-        <input id="senha" class="entrada" placeholder="senha"
-          pattern="(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[\W_]).{8,}"
-          title="Mínimo 8 caracteres, incluindo maiúscula, minúscula, número e especial." required
-        >
-        <button type="button" class="alternar_senha" data-target="senha">
-          <span class="eye-open">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              width="24" height="24">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-          </span>
+        <h2>Atualizar Perfil</h2>
 
-          <span class="eye-closed" style="display:none;">
-           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              width="24" height="24">
-              <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8
-              a21.57 21.57 0 0 1 5.06-5.94M9.9 4.24A9.77 9.77 0 0 1 12 4
-              c7 0 11 8 11 8a21.57 21.57 0 0 1-2.53 3.33M1 1l22 22"/>
-           </svg>
-          </span>
-        </button>
-       </div>
-       
-        <div class="campo_senha">
-        <input id="novasenha" class="entrada" placeholder="Confirme sua senha"
-          pattern="(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[\W_]).{8,}"
-          title="Mínimo 8 caracteres, incluindo maiúscula, minúscula, número e especial." required
-        >
-        <button type="button" class="alternar_senha" data-target="novasenha">
-          <span class="eye-open">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              width="24" height="24">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-          </span>
+        <input type="text" placeholder="Nome" id="nome">
 
-          <span class="eye-closed" style="display:none;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              width="24" height="24">
-              <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8
-              a21.57 21.57 0 0 1 5.06-5.94M9.9 4.24A9.77 9.77 0 0 1 12 4
-              c7 0 11 8 11 8a21.57 21.57 0 0 1-2.53 3.33M1 1l22 22"/>
-            </svg>
-          </span>
-        </button>
-       </div>
+        <!-- SENHA NOVA -->
+        <div class="campo_senha">
+          <input id="senha" class="entrada" type="password" placeholder="Senha nova">
+
+          <button type="button" class="alternar_senha" data-target="senha">
+            <span class="eye-open">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </span>
+
+            <span class="eye-closed" style="display:none;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8
+                  a21.57 21.57 0 0 1 5.06-5.94M9.9 4.24A9.77 9.77 0 0 1 12 4
+                  c7 0 11 8 11 8a21.57 21.57 0 0 1-2.53 3.33M1 1l22 22">
+                </path>
+              </svg>
+            </span>
+          </button>
+        </div>
+
+        <!-- CONFIRMAR SENHA -->
+        <div class="campo_senha">
+          <input id="cSenha" class="entrada" type="password" placeholder="Confirmar senha">
+
+          <button type="button" class="alternar_senha" data-target="cSenha">
+            <span class="eye-open">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </span>
+
+            <span class="eye-closed" style="display:none;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8
+                  a21.57 21.57 0 0 1 5.06-5.94M9.9 4.24A9.77 9.77 0 0 1 12 4
+                  c7 0 11 8 11 8a21.57 21.57 0 0 1-2.53 3.33M1 1l22 22">
+                </path>
+              </svg>
+            </span>
+          </button>
+        </div>
 
       </div>
 
       <button class="botao-concluido">Salvar</button>
     </div>
+
+    <!-- LADO DIREITO -->
     <div class="perfil">
-      <input type="file" accept="image/*" style="display: none;" id="fotoInput">
+
+      <input type="file" accept="image/*" id="fotoInput" style="display: none;">
+
       <img id="perfilM"
         src="https://static.vecteezy.com/ti/vetor-gratis/p1/26434417-padrao-avatar-perfil-icone-do-social-meios-de-comunicacao-do-utilizador-foto-vetor.jpg"
-        alt="" class="foto-perfil">
+        alt="foto de perfil" class="foto-perfil">
 
       <div class="botoes">
         <button id="editarFoto">Editar</button>
         <button id="removerFoto">Remover</button>
       </div>
     </div>
+
   </main>
 
+  <!-- ALERTA MODERNO (pronto para receber erro/sucesso) -->
+  <div id="customAlert" class="alert-overlay" style="display: none;">
+    <div class="alert-box">
+      <p id="alertMessage"></p>
+      <button id="alertBtn">OK</button>
+    </div>
+  </div>
 
   <script src="../JS/perfil.js"></script>
+
+  <!-- SCRIPT OLHO DA SENHA -->
+  <script>
+    document.querySelectorAll('.alternar_senha').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const input = document.getElementById(btn.dataset.target);
+        const openEye = btn.querySelector('.eye-open');
+        const closedEye = btn.querySelector('.eye-closed');
+
+        const show = input.type === "password";
+        input.type = show ? "text" : "password";
+        openEye.style.display = show ? "none" : "inline";
+        closedEye.style.display = show ? "inline" : "none";
+      });
+    });
+  </script>
+
 </body>
 
 </html>

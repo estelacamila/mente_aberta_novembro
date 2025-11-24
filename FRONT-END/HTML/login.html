@@ -8,7 +8,7 @@
 </head>
 <body>
     
-    <form >
+    <form id="loginForm">
         <div class="campo">
             <div class="cabeca">
               <img src="../IMG/logo_principal (3).png" alt="logo" width="290px" height="270px">
@@ -16,13 +16,13 @@
             
             <input class="entrada" type="email" 
             placeholder="Digite seu email..." 
-            title="Digite um e-mail válido, ex: exemplo@extensão.com" required
+            title="Digite um e-mail válido, ex: exemplo@extensão.com"
             id="email"
             >
             
             <div class="campo_senha">
-              <input id="senha" class="entrada" placeholder="Digite sua senha..."
-               title="Mínimo 8 caracteres, incluindo maiúscula, minúscula, número e especial." required
+<input id="senha" class="entrada" type="password" placeholder="Digite sua senha..."
+               title="Mínimo 8 caracteres, incluindo maiúscula, minúscula, número e especial."
               >
               <button type="button" class="alternar_senha" data-target="senha">
                 <span class="eye-open">
@@ -46,10 +46,19 @@
               </button>
             </div>
         </div>
+
         <button id="button">Entrar</button>
         
         <a href="../HTML/cadastro.html" >Cadastre-se</a>
     </form>
+
+    <!-- ALERTA BONITO -->
+    <div id="customAlert" class="alert-overlay" style="display: none;">
+      <div class="alert-box">
+        <p id="alertMessage"></p>
+        <button id="alertBtn">OK</button>
+      </div>
+    </div>
 
     <script src="../JS/login.js"></script>
 </body>

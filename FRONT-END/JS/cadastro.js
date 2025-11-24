@@ -5,35 +5,52 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // Cria elemento de mensagem se não existir
-  let messageEl = document.getElementById('registerMessage');
-  if (!messageEl) {
-    messageEl = document.createElement('p');
-    messageEl.id = 'registerMessage';
-    const btn = form.querySelector('button, input[type="submit"]');
-    if (btn && btn.parentNode) btn.parentNode.insertBefore(messageEl, btn.nextSibling);
-    else form.appendChild(messageEl);
-  }
-
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    await register(messageEl);
+    await register();
   });
 
-  // Toggle do "olhinho" da senha
+  // Toggle do olho da senha
   document.querySelectorAll('.alternar_senha').forEach(btn => {
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-target');
       const input = document.getElementById(targetId);
       const isPassword = input.type === 'password';
+
       input.type = isPassword ? 'text' : 'password';
+
       btn.querySelector('.eye-closed').style.display = isPassword ? 'none' : 'inline';
       btn.querySelector('.eye-open').style.display = isPassword ? 'inline' : 'none';
     });
   });
 });
 
-async function register(messageEl) {
+
+// --------------------------------------------------------
+//  ALERTA PERSONALIZADO — MENSAGENS MAIS BONITAS
+// --------------------------------------------------------
+function showAlert(message, type = "error") {
+  const overlay = document.getElementById("customAlert");
+  const msgEl = document.getElementById("alertMessage");
+  const btn = document.getElementById("alertBtn");
+
+  msgEl.textContent = message;
+
+  overlay.classList.remove("alert-error", "alert-success");
+  overlay.classList.add(type === "success" ? "alert-success" : "alert-error");
+
+  overlay.style.display = "flex";
+
+  btn.onclick = () => {
+    overlay.style.display = "none";
+  };
+}
+
+
+// --------------------------------------------------------
+//  FUNÇÃO DE CADASTRO — MENSAGENS REFINADAS
+// --------------------------------------------------------
+async function register() {
   const nomeEl = document.getElementById('nome');
   const emailEl = document.getElementById('email');
   const passwordEl = document.getElementById('senha');
@@ -44,28 +61,28 @@ async function register(messageEl) {
   const password = passwordEl.value.trim();
   const confirmPassword = confirmEl.value.trim();
 
-  // Validações
+  // Validações com showAlert()
   if (!nome || !email || !password || !confirmPassword) {
-    showMessage(messageEl, 'Preencha todos os campos!', 'red');
+    showAlert('Preencha todos os campos.', 'error');
     return;
   }
 
   if (!validateEmail(email)) {
-    showMessage(messageEl, 'Email inválido!', 'red');
+    showAlert('Digite um email válido.', 'error');
     return;
   }
 
   if (!validatePassword(password)) {
-    showMessage(messageEl, 'Senha deve ter letras maiúsculas, minúsculas, número e caractere especial!', 'red');
+    showAlert('A senha precisa ser mais forte.', 'error');
     return;
   }
 
   if (password !== confirmPassword) {
-    showMessage(messageEl, 'As senhas não coincidem!', 'red');
+    showAlert('As senhas não coincidem.', 'error');
     return;
   }
 
-  showMessage(messageEl, 'Processando...', 'black');
+  showAlert('Validando dados...', 'success');
 
   try {
     const response = await fetch('https://back-render-vpda.onrender.com/Cadastrar', {
@@ -79,36 +96,31 @@ async function register(messageEl) {
       throw new Error(errorText || response.statusText);
     }
 
-    const data = await response.json();
+    showAlert('Cadastro concluído! Redirecionando...', 'success');
 
-    showMessage(messageEl, 'Cadastro realizado com sucesso! Redirecionando...', 'green');
     nomeEl.value = '';
     emailEl.value = '';
     passwordEl.value = '';
     confirmEl.value = '';
 
-    setTimeout(() => window.location.replace('./login.html'), 700);
+    setTimeout(() => window.location.replace('./login.html'), 800);
+
   } catch (err) {
     console.error('Erro no fetch:', err);
-    showMessage(messageEl, 'Erro ao cadastrar: ' + err.message, 'orange');
+    showAlert('Email já cadastrado. Tente novamente.', 'error');
   }
 }
 
-// Função para mostrar mensagens
-function showMessage(el, text, color) {
-  el.style.color = color || 'black';
-  el.textContent = text;
-}
 
-// Validação de e-mail
+// --------------------------------------------------------
+//  VALIDAÇÕES
+// --------------------------------------------------------
 function validateEmail(email) {
   const re = /\S+@\S+\.\S+/;
   return re.test(email);
 }
 
-// Validação de senha forte
 function validatePassword(password) {
-  // Pelo menos 1 maiúscula, 1 minúscula, 1 número, 1 caractere especial, mínimo 6 caracteres
   const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
   return re.test(password);
 }
